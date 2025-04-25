@@ -171,13 +171,4 @@ AgriMonitor/
 ---
 
 ## 📜 License
-✅ **Ready to use** on GitHub or display in your portfolio.
-
-Would you like me to help:
-- Generate a **custom project banner**?
-- Create a **professional LinkedIn post caption** with emojis and hashtags?
-- Add a **demo GIF or video** section?
-
-Let me know how you'd like to present this project further!
-
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
