@@ -128,23 +128,6 @@ pip install -r requirements.txt
 
 ---
 
-## ▶️ Usage
-
-### Start System
-
-```bash
-python main.py
-```
-
-### Flow
-
-1. Press `*` on the keypad to initialize system
-2. Choose task:
-   - `1` for Irrigation Control
-   - `2` for Crop Recommendation
-3. Speak **"start"** when prompted
-4. Results and real-time sensor data will be displayed on LCD
-
 ### Data Logging
 
 - Directory: `/ProjectBackups/`
