@@ -1,51 +1,64 @@
-# Smart Agricultural Monitoring System
+# 🌱 Smart Agricultural Monitoring System
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![RaspberryPi](https://img.shields.io/badge/Hardware-Raspberry_Pi-red)
 ![Proteus](https://img.shields.io/badge/Simulation-Proteus-important)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An intelligent system for real-time crop monitoring and irrigation control using Raspberry Pi, multiple environmental sensors, and machine learning.
+An intelligent, IoT-powered agricultural monitoring system for real-time crop analysis and voice-activated irrigation control using Raspberry Pi and machine learning.
 
-![image](https://github.com/user-attachments/assets/598522ff-4597-4f7e-916b-81d6b4080605)
+![System Diagram](WhatsApp-Image-2025-02-11-at-13.54.56_fe680e07.jpg)
 
-## Key Features
+---
 
-### Hardware Implementation
+## 🚀 Key Features
+
+### 🔧 Hardware Implementation
+
 - **Soil Monitoring Suite**:
-  - Capacitive soil moisture sensor (Analog)
+  - Capacitive soil moisture sensor (Analog via MCP3008)
   - LM35 temperature sensor (±0.5°C accuracy)
-  - pH sensor (0-14 range)
+  - pH sensor (0–14 range, pH-4502C)
   - Rain gauge (0.2mm resolution tipping bucket)
 
-- **Control System**:
-  - 2x DC water pumps (5V/1A)
-  - 16x2 LCD display (HD44780)
-  - 4x3 matrix keypad
-  - Status LEDs
+- **Control & Output**:
+  - Dual 5V DC water pumps (relay-controlled)
+  - 16x2 HD44780 LCD display
+  - 4x3 Matrix Keypad
+  - Visual feedback via status LEDs
 
 - **Communication**:
-  - UART serial communication
-  - SPI interface for analog sensors
+  - SPI interface for analog sensor reading
+  - UART serial for debugging and Proteus simulation
 
-### Smart Algorithms
-- **Task 1: Irrigation Control**:
-  - KNN classifier (k=5) for pump activation
-  - Decision threshold: Moisture < 30% AND Temp > 25°C
+---
 
-- **Task 2: Crop Recommendation**:
-  - Multi-parameter KNN model (temperature, humidity, pH, rainfall)
-  - Trained on 2200+ crop samples
-  - 89.7% test accuracy
+### 🧠 Smart Algorithms
 
-### Voice Interface
-- Google Speech Recognition API
-- Voice command activation ("start")
-- Real-time feedback via LCD
+- **Irrigation Control**:
+  - K-Nearest Neighbors (KNN) Classifier (k=5)
+  - Triggered when:
+    - Moisture < 30%
+    - Temperature > 25°C
 
-## System Architecture
+- **Crop Recommendation**:
+  - KNN model trained on 2200+ crop samples
+  - Input features: Temperature, Humidity, pH, Rainfall
+  - Test Accuracy: **89.7%**
 
-```plaintext
+---
+
+### 🎤 Voice Control
+
+- Google Speech Recognition API integration  
+- Voice trigger word: **“start”**
+- Feedback shown on LCD screen
+
+---
+
+## 📐 System Architecture
+
+```
 ┌───────────────────────────────────────────────────────┐
 │                    Raspberry Pi 4                     │
 │ ┌─────────────┐  ┌─────────────┐  ┌────────────────┐ │
@@ -60,3 +73,144 @@ An intelligent system for real-time crop monitoring and irrigation control using
 │                                    │ - Validation  │ │
 │                                    └───────────────┘ │
 └───────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🧰 Hardware Pinout
+
+| Component        | GPIO Pin       | Interface     | Notes                        |
+|------------------|----------------|---------------|------------------------------|
+| Soil Moisture    | CH0            | SPI (MCP3008) | 10-bit ADC                   |
+| Temperature      | CH1            | SPI           | LM35 analog out              |
+| Humidity Sensor  | CH2            | SPI           | Custom capacitive sensor     |
+| pH Sensor        | CH4            | SPI           | pH-4502C module              |
+| Rain Gauge       | GPIO7          | Digital       | Tip counter                  |
+| Pump 1           | GPIO31         | Relay         | 5V control                   |
+| Pump 2           | GPIO29         | Relay         | Backup pump                  |
+| LCD RS           | GPIO13         | Parallel      | HD44780                      |
+| LCD E            | GPIO26         | Parallel      |                              |
+| Keypad (Rows)    | 33, 36, 35, 12 | Matrix        | 4x3 Configuration            |
+
+---
+
+## 🛠️ Installation
+
+### Hardware Setup
+
+```bash
+# Enable SPI interface on Raspberry Pi
+sudo raspi-config nonint do_spi 0
+```
+
+### Install Software Requirements
+
+```bash
+pip install -r requirements.txt
+```
+
+#### Core Libraries:
+- `RPi.GPIO`
+- `spidev`
+- `scikit-learn`
+- `SpeechRecognition`
+- `pyserial`
+
+---
+
+## 🔧 Calibration
+
+- **Rain Gauge**:
+  - Modify `CALIBRATION_FACTOR_MM` based on actual tip volume
+
+- **pH Sensor**:
+  - Adjust calibration offset in `CONVERT_PH()` for accurate readings
+
+---
+
+## ▶️ Usage
+
+### Start System
+
+```bash
+python main.py
+```
+
+### Flow
+
+1. Press `*` on the keypad to initialize system
+2. Choose task:
+   - `1` for Irrigation Control
+   - `2` for Crop Recommendation
+3. Speak **"start"** when prompted
+4. Results and real-time sensor data will be displayed on LCD
+
+### Data Logging
+
+- Directory: `/ProjectBackups/`
+- Format: CSV
+- Includes timestamps and sensor readings
+
+---
+
+## 🧪 Proteus Simulation
+
+The system includes a complete simulation model using **Proteus**, featuring:
+
+- Virtual Raspberry Pi microcontroller
+- Adjustable sensor models
+- Simulated pumps
+- UART debug console
+
+📷 *Include your Proteus screenshot here (`proteus_simulation.png`)*
+
+---
+
+## 📁 Project Structure
+
+```
+AgriMonitor/
+├── hardware/               # Proteus design files
+│   ├── schematic.DSN
+│   └── PCB_Layout.pds
+├── firmware/               # Raspberry Pi code
+│   ├── main.py             # Primary control logic
+│   ├── sensors.py          # Sensor interfaces
+│   └── ml_models/          # Trained models
+├── datasets/               # Training data
+│   ├── irrigation_data.csv
+│   └── crop_recommendation.csv
+└── docs/                   # Documentation
+    ├── wiring_diagram.pdf
+    └── calibration_guide.md
+```
+
+---
+
+## 🔗 External References
+
+- [Ackley Function (used in comparison)](https://www.sfu.ca/~ssurjano/ackley.html)
+
+---
+
+## 💼 LinkedIn Project Summary
+
+**Smart Agricultural Monitoring System**  
+Raspberry Pi | Machine Learning | IoT | Voice Control | Proteus Simulation
+
+🚜 Developed a smart farming solution that analyzes real-time soil data  
+🗣️ Integrated voice-controlled irrigation using a KNN model  
+🌾 Designed a crop recommendation system with 89.7% test accuracy  
+🛠️ Simulated and tested hardware design in Proteus before deployment  
+📉 Low-power operation with fault-tolerant pump control logic
+
+🔗 GitHub Repository  
+🔗 Proteus Simulation Files  
+
+#AgricultureTech #IoT #MachineLearning #RaspberryPi #VoiceControl #PrecisionFarming
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
