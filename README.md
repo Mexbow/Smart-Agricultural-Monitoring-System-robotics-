@@ -7,7 +7,7 @@
 
 An intelligent, IoT-powered agricultural monitoring system for real-time crop analysis and voice-activated irrigation control using Raspberry Pi and machine learning.
 
-![System Diagram](WhatsApp-Image-2025-02-11-at-13.54.56_fe680e07.jpg)
+![PDS_URFy9j8o6R](https://github.com/user-attachments/assets/40933212-1688-4107-b96d-e009a464e6f1)
 
 ---
 
