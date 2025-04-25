@@ -7,7 +7,7 @@
 
 An intelligent system for real-time crop monitoring and irrigation control using Raspberry Pi, multiple environmental sensors, and machine learning.
 
-![System Diagram](WhatsApp-Image-2025-02-11-at-13.54.56_fe680e07.jpg)
+![image](https://github.com/user-attachments/assets/598522ff-4597-4f7e-916b-81d6b4080605)
 
 ## Key Features
 
